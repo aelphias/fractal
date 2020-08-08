@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   esc.c                                              :+:      :+:    :+:   */
+/*   key.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aelphias <aelphias@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/07 21:53:31 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/08 12:03:29 by aelphias         ###   ########lyon.fr   */
+/*   Created: 2020/08/08 12:30:23 by aelphias          #+#    #+#             */
+/*   Updated: 2020/08/08 12:53:00 by aelphias         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int		ft_exit(t_fractal *data) {
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	exit(0);
+int		deal_key(int key, t_fractal *data)
+{
+	if (key == 53)
+	 exit(0);
+	return (0);
 }

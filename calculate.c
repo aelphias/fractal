@@ -6,7 +6,7 @@
 /*   By: aelphias <aelphias@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 21:31:16 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/08 19:48:52 by aelphias         ###   ########lyon.fr   */
+/*   Updated: 2020/08/09 17:11:02 by aelphias         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,23 @@ void	calculate(t_fractal *data)
  */
 	//mlx_pixel_put(data->mlx_ptr, data->win_ptr, 1, 1, 0xFF5733);
 	
-	/* while (i++ < data->w)
-	{
-		k = 0;
-		while (k++ < data->h)
-			//mlx_pixel_put(data->mlx_ptr, data->win_ptr, i, k, 0x229954);
-	}	 */
+	
 
-	data->mlx_img = mlx_new_image(data->mlx_ptr, data->w, data->h );
-	mlx_get_data_addr(data->mlx_img, 24, );
+	int deph = 32, width = data->w, endian = 0;
+
+	data->mlx_img = mlx_new_image(data->mlx_ptr, data->w, data->h);
+	data->mlx_addr = (unsigned int*)mlx_get_data_addr(data->mlx_img, &deph, &width, &endian);
+
+	int x = 0, y = 0;
+	while (data->y != data->h) {
+		while (data->x != data->w) {
+			data->mlx_addr[data->x + data->w * data->y] = 20;
+			data->x += 1;
+		}
+		data->x = 0;
+		data->y += 1;
+	}
+
+	mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->mlx_img, 0 ,0);
 }

@@ -6,7 +6,7 @@
 /*   By: aelphias <aelphias@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 20:18:48 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/08 19:31:32 by aelphias         ###   ########lyon.fr   */
+/*   Updated: 2020/08/09 15:21:10 by aelphias         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_fractal
 	void		*mlx_ptr;
 	void		*win_ptr;
 	void		*mlx_img;
-	char		*mlx_addr;
+	unsigned int	*mlx_addr;
 	int			color;
 	int			x;
 	int			y;

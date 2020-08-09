@@ -6,7 +6,7 @@
 /*   By: aelphias <aelphias@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 21:31:16 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/09 17:11:02 by aelphias         ###   ########lyon.fr   */
+/*   Updated: 2020/08/09 20:54:04 by aelphias         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,23 @@ with radius 2. The number of iterations it the color of the pixel. */
 }
  */
 
+
+unsigned char get_gray_color(double complex z0)
+ {
+    double complex z = z0;
+	
+    for (unsigned char gray = 255; gray; gray--)
+    {
+        if (cabs(z) > 2)
+
+            return gray;
+        z = z * z + z0;
+    }
+   return 0;
+}
+
+
+
 void	calculate(t_fractal *data)
 {
 	int i;
@@ -36,8 +53,31 @@ void	calculate(t_fractal *data)
  */
 	//mlx_pixel_put(data->mlx_ptr, data->win_ptr, 1, 1, 0xFF5733);
 	
-	
 
+	double z_a;
+	double z_b;
+	z_a = 2.0;
+	z_b = 2.0;
+	complex double z = 0;
+	z. = 2;
+	z.i = 2;
+	while (z.r >= -2.0)
+	{
+		z.i = 2.0;
+		while (z.i >= -2.0)
+		{
+			data->color = (int)get_gray_color(z);
+			printf("%d ", color);
+			z.i -= 0.005;
+		}
+		
+		z.r- = 0.005;
+		
+	}
+	
+	
+		
+/* 
 	int deph = 32, width = data->w, endian = 0;
 
 	data->mlx_img = mlx_new_image(data->mlx_ptr, data->w, data->h);
@@ -54,5 +94,5 @@ void	calculate(t_fractal *data)
 	}
 
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->mlx_img, 0 ,0);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->mlx_img, 0 ,0); */
 }

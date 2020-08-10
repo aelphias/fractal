@@ -6,7 +6,7 @@
 /*   By: aelphias <aelphias@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 20:18:48 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/09 20:51:41 by aelphias         ###   ########lyon.fr   */
+/*   Updated: 2020/08/10 22:09:00 by aelphias         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 # include <string.h>
 # include <stdlib.h>
 # include <stdio.h>
+
+typedef struct s_complex
+{
+	double re;
+	double im;
+}			t_complex;
 
 typedef struct s_fractal
 {

@@ -6,7 +6,7 @@
 /*   By: aelphias <aelphias@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 20:18:48 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/10 22:09:00 by aelphias         ###   ########lyon.fr   */
+/*   Updated: 2020/08/11 23:53:34 by aelphias         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <stdio.h>
-
+#include <unistd.h>
 typedef struct s_complex
 {
 	double re;
@@ -28,25 +28,28 @@ typedef struct s_complex
 
 typedef struct s_fractal
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	void		*mlx_img;
 	unsigned int	*mlx_addr;
-	int			color;
-	int			x;
-	int			y;
-	int			z;
-	int			i;
-	int			k;
-	int			w;
-	int			h;
-	float		x_cmplx;
-	float		y_cmplx;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	void			*mlx_img;
+	int				color;
+	int				x;
+	int				y;
+	int				z;
+	int				i;
+	int				k;
+	int				w;
+	int				h;
+	double			zoom;
+	//int				(*f_ptr)(t_fractal);
 }		t_fractal;
 
 void	set_defaults(t_fractal *data);
 void	calculate(t_fractal *data);
 int		ft_exit(t_fractal *data);
-int		deal_key(int key, t_fractal *data);
-
+int		keyboard(int key, t_fractal *data);
+int		deal_mouse(int mouse, int x, int y, t_fractal *data);
+int		julia(t_fractal *data);
+int		mandelbrot(t_fractal *data);
+void	black_it(t_fractal *data);
 #endif

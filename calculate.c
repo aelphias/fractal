@@ -6,7 +6,7 @@
 /*   By: aelphias <aelphias@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 21:31:16 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/11 14:47:31 by aelphias         ###   ########lyon.fr   */
+/*   Updated: 2020/08/12 01:31:15 by aelphias         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,12 @@ int	mandelbrot(t_fractal *data)
 {
 	int i = 0;
 	t_complex	z, c;
-	double zoom;
-
-	zoom = 250.0;
 				/*move left and write*/
-	c.re = (data->x - 400) / zoom;//zoom;
-	c.im = (data->y - 400) / zoom; /* move up and down*/
+	c.re = (data->x - 350) / data->zoom;//zoom;
+	c.im = (data->y - 250) / data->zoom; /* move up and down*/
 	z = c;
-	while (i < 200 && ((z.re * z.re + z.im * z.im) <= 4.f)) {
+	while (i < 300 && ((z.re * z.re + z.im * z.im) <= 4.f))
+	{
 		t_complex tmp = z;
 		z.re = tmp.re * tmp.re - tmp.im * tmp.im;
 		z.im = 2 * tmp.re * tmp.im;
@@ -52,21 +50,24 @@ int	mandelbrot(t_fractal *data)
 		z.im += c.im;
 		i += 1;
 	}
-/* 	return (bernstein_color(i, 2000, 0.00775)); // color 0,1 - 1
- */	return (i); // color 0,1 - 1
+	//return (bernstein_color(i, 100, 0.5)); // color 0,1 - 1
+	return (i * 4); // color 0,1 - 1
 
 }
 
 int	julia(t_fractal *data)
 {
-	int i = 0;
-	t_complex	z, c;
+	int i;
+	t_complex	c;
+	t_complex	z;
 
+	i = 0;
 	z.re = (data->x - 400) / 400.f;
 	z.im = (data->y - 400) / 400.f;
 	c.re = -0.4;
 	c.im = 0.6;
-	while (i < 10000 && ((z.re * z.re + z.im * z.im) <= 4.f)) {
+	while (i < 10000 && ((z.re * z.re + z.im * z.im) <= 4.f))
+	{
 		t_complex tmp = z;
 		z.re = tmp.re * tmp.re - tmp.im * tmp.im;
 		z.im = 2 * tmp.re * tmp.im;
@@ -74,24 +75,37 @@ int	julia(t_fractal *data)
 		z.im += c.im;
 		i += 1;
 	}
-	return (i);
-	//return (bernstein_color(i, 2000, 0.00775));
+	//return (i);
+	return (bernstein_color(i, 2000, 0.00775));
 }
 
 void	calculate(t_fractal *data)
-{
-	int deph = 32, width = data->w, endian = 0;
-
-	data->mlx_img = mlx_new_image(data->mlx_ptr, data->w, data->h);
-	data->mlx_addr = (unsigned int*)mlx_get_data_addr(data->mlx_img, &deph, &width, &endian);
-	while (data->y != data->h) {
-		while (data->x != data->w) {
-			data->mlx_addr[data->x + data->w * data->y] = mandelbrot(data);
-			data->x += 1;
+{	
+	int (*f_ptr)(t_fractal*); 
+	
+  	f_ptr  = &mandelbrot;
+	black_it(data);
+	while (data->y != data->h)
+	{
+		while (data->x != data->w)
+		{
+			data->mlx_addr[data->x + data->w * data->y] = (*f_ptr)(data);
+			data->x++;
 		}
 		data->x = 0;
-		data->y += 1;
+		data->y++;
 	}
-	mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->mlx_img, 0 ,0); 
+	data->y = 0;
+	data->x = 0;
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->mlx_img, 0 ,0);
 }
+
+
+/* int mandel(complex c, int max_count) {
+ int count = 0; complex z = 0;
+ for (int i = 0; i < max_count; ++i) {
+ if (abs(z) >= 2.0) break;
+ z = z*z + c; count++;
+ }
+ return count;
+}  */

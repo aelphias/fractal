@@ -6,7 +6,7 @@
 #    By: aelphias <aelphias@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/07 19:06:53 by aelphias          #+#    #+#              #
-#    Updated: 2020/08/07 21:18:51 by aelphias         ###   ########lyon.fr    #
+#    Updated: 2020/08/11 23:24:44 by aelphias         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME 		= 	fractol
 
 HEADER 		= 	fractol.h
 
-FLAGS		=	-Wextra -Wall -Werror -g
+FLAGS		=	-Wextra -Wall -Werror 
 
 FRAMEWORKS	=	-lmlx -framework OpenGL -framework AppKit
 
@@ -24,7 +24,7 @@ SRC			= 	*.c
 
 
 all: 
-		gcc $(FRAMEWORKS) -I$(HEADER) $(SRC) -o $(NAME)
+		@gcc $(FRAMEWORKS) -I$(HEADER) $(SRC) -o $(NAME)
 
 norm:	
 		norminette *.c *.h

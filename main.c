@@ -6,7 +6,7 @@
 /*   By: aelphias <aelphias@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 19:06:51 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/09 15:14:08 by aelphias         ###   ########lyon.fr   */
+/*   Updated: 2020/08/11 14:40:32 by aelphias         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 void	set_defaults(t_fractal *data)
 {
 	bzero(data, sizeof(t_fractal));
-	data->w = 800; /* x */
-	data->h = 800;/* y */
+	data->w = 600; /* x */
+	data->h = 600;/* y */
 }
 int	main(void)
 {

@@ -6,24 +6,15 @@
 /*   By: aelphias <aelphias@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 21:31:16 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/10 22:45:47 by aelphias         ###   ########lyon.fr   */
+/*   Updated: 2020/08/11 14:47:31 by aelphias         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-/* for every pixel, iterate znew = zold² + c 
-on the complex plane until it leaves the circle around the origin 
-with radius 2. The number of iterations it the color of the pixel. 
-http://zonakoda.ru/vizualizaciya-mnozhestva-mandelbrota.html
-*/
-
-/*  fr->f = create_cmplx((fr->max.re - fr->min.re) / (fr->width - 1),
-   (fr->max.im - fr->min.im) / (fr->height - 1)); */
-   
+ 
 __uint32_t	bernstein_color(int iter, int itera, double shift)
 {
-	__uint32_t	color;
+	__uint32_t	color;   /*0 .. 4,294,967,295*/
 	int			r;
 	int			g;
 	int			b;
@@ -46,11 +37,14 @@ int	mandelbrot(t_fractal *data)
 {
 	int i = 0;
 	t_complex	z, c;
+	double zoom;
 
-	c.re = (data->x - 400) / 400.f;//zoom;
-	c.im = (data->y - 400) / 400.f;
+	zoom = 250.0;
+				/*move left and write*/
+	c.re = (data->x - 400) / zoom;//zoom;
+	c.im = (data->y - 400) / zoom; /* move up and down*/
 	z = c;
-	while (i < 2000 && ((z.re * z.re + z.im * z.im) <= 4.f)) {
+	while (i < 200 && ((z.re * z.re + z.im * z.im) <= 4.f)) {
 		t_complex tmp = z;
 		z.re = tmp.re * tmp.re - tmp.im * tmp.im;
 		z.im = 2 * tmp.re * tmp.im;
@@ -58,7 +52,9 @@ int	mandelbrot(t_fractal *data)
 		z.im += c.im;
 		i += 1;
 	}
-	return (bernstein_color(i, 2000, 0.00775)); // color 0,1 - 1
+/* 	return (bernstein_color(i, 2000, 0.00775)); // color 0,1 - 1
+ */	return (i); // color 0,1 - 1
+
 }
 
 int	julia(t_fractal *data)
@@ -70,7 +66,7 @@ int	julia(t_fractal *data)
 	z.im = (data->y - 400) / 400.f;
 	c.re = -0.4;
 	c.im = 0.6;
-	while (i < 64 && ((z.re * z.re + z.im * z.im) <= 4.f)) {
+	while (i < 10000 && ((z.re * z.re + z.im * z.im) <= 4.f)) {
 		t_complex tmp = z;
 		z.re = tmp.re * tmp.re - tmp.im * tmp.im;
 		z.im = 2 * tmp.re * tmp.im;
@@ -79,6 +75,7 @@ int	julia(t_fractal *data)
 		i += 1;
 	}
 	return (i);
+	//return (bernstein_color(i, 2000, 0.00775));
 }
 
 void	calculate(t_fractal *data)

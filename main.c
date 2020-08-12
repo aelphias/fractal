@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelphias <aelphias@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: aelphias <aelphias@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 19:06:51 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/12 01:25:53 by aelphias         ###   ########lyon.fr   */
+/*   Updated: 2020/08/12 22:20:27 by aelphias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void	set_defaults(t_fractal *data)
 	int		width; 
 	int		endian;
 	
-	depth 		= 24;
-	width		= data->w;
-	endian		= 0;
 	bzero(data, sizeof(t_fractal));
+	depth 		= 24;
+	endian		= 0;
+	width		= data->w;
 	data->w = 800; /* x */
 	data->h = 800;/* y */
-	data->zoom = 400.0;
+	data->zoom = 250.0;
 	data->mlx_ptr = mlx_init();
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->w, data->h, "Fractal");
 	data->mlx_img = mlx_new_image(data->mlx_ptr, data->w, data->h);
@@ -49,13 +49,35 @@ void	mlx_start(t_fractal *data)
 	mlx_loop(data->mlx_ptr);
 }
 
-int	main(void)
+void	check(char **argv, t_fractal *data)
 {
-	t_fractal *data;
-	
-	set_defaults(data);
-	calculate(data); 
-	mlx_start(data);
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	if (argv[1][0] == 'm')
+	{
+		data->f_ptr = m;
+		calculate(data); 
+	}
+	else if (argv[1][0] == 'j')
+	{
+		data->f_ptr = j;
+		data->c.re = -0.4;
+		data->c.im = 0.6;
+		calculate(data);
+	}
+	else 
+		write(1, "wrong flag, try: m or j..\n", 27);
+}
+
+int	main(int argc, char **argv)
+{
+	t_fractal data;
+	if (argc < 2)
+	{
+		write(1, "usage: ./fractol [-flag]\nm - mandelbrot set\nj julia set\nr - 3rd set\n", 68);  
+		return (0);
+	}
+	set_defaults(&data);
+ 	check(argv, &data);
+	mlx_start(&data);
+	mlx_destroy_window(data.mlx_ptr, data.win_ptr);
 	return (0);
 }

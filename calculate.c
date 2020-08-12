@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calculate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelphias <aelphias@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: aelphias <aelphias@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 21:31:16 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/12 01:31:15 by aelphias         ###   ########lyon.fr   */
+/*   Updated: 2020/08/12 22:16:08 by aelphias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,19 @@ __uint32_t	bernstein_color(int iter, int itera, double shift)
 	return (color);
 }
 
-int	mandelbrot(t_fractal *data)
+int	m(t_fractal *data)
 {
 	int i = 0;
 	t_complex	z, c;
 				/*move left and write*/
-	c.re = (data->x - 350) / data->zoom;//zoom;
-	c.im = (data->y - 250) / data->zoom; /* move up and down*/
+	/* c.re = (data->x - (data->w / 2)* data->mouse_x) / data->zoom;//zoom;
+	c.im = (data->y - (data->h /2 )* data->mouse_y) / data->zoom; */
+	c.re = ((data->x - 400) / data->zoom) + data->move_x;//zoom;
+	c.im = ((data->y - 400) / data->zoom) + data->move_y; /* move up and down*/
 	z = c;
-	while (i < 300 && ((z.re * z.re + z.im * z.im) <= 4.f))
+
+	
+	while (i < 20 && ((z.re * z.re + z.im * z.im) <= 4.f))
 	{
 		t_complex tmp = z;
 		z.re = tmp.re * tmp.re - tmp.im * tmp.im;
@@ -55,24 +59,21 @@ int	mandelbrot(t_fractal *data)
 
 }
 
-int	julia(t_fractal *data)
+int	j(t_fractal *data)
 {
 	int i;
-	t_complex	c;
 	t_complex	z;
 
 	i = 0;
 	z.re = (data->x - 400) / 400.f;
 	z.im = (data->y - 400) / 400.f;
-	c.re = -0.4;
-	c.im = 0.6;
 	while (i < 10000 && ((z.re * z.re + z.im * z.im) <= 4.f))
 	{
 		t_complex tmp = z;
 		z.re = tmp.re * tmp.re - tmp.im * tmp.im;
 		z.im = 2 * tmp.re * tmp.im;
-		z.re += c.re;
-		z.im += c.im;
+		z.re += data->c.re;
+		z.im += data->c.im;
 		i += 1;
 	}
 	//return (i);
@@ -81,15 +82,12 @@ int	julia(t_fractal *data)
 
 void	calculate(t_fractal *data)
 {	
-	int (*f_ptr)(t_fractal*); 
-	
-  	f_ptr  = &mandelbrot;
 	black_it(data);
 	while (data->y != data->h)
 	{
 		while (data->x != data->w)
 		{
-			data->mlx_addr[data->x + data->w * data->y] = (*f_ptr)(data);
+			data->mlx_addr[data->x + data->w * data->y] = data->f_ptr(data);
 			data->x++;
 		}
 		data->x = 0;

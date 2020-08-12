@@ -5,7 +5,7 @@
 		"type": "cppdbg",
 		"request": "launch",
 		"program": "${workspaceFolder}/fractol",
-		"args": [],
+		"args": ["m"],
 		"stopAtEntry": true,
 		"cwd": "${workspaceFolder}",
 		"environment": [],

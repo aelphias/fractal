@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelphias <aelphias@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: aelphias <aelphias@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 12:30:23 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/12 01:22:15 by aelphias         ###   ########lyon.fr   */
+/*   Updated: 2020/08/12 22:22:50 by aelphias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@ int		keyboard(int key, t_fractal *data)
 	}
 	if (key == 34) // i - in
 	{	
-		data->zoom += 30;
+		data->f_ptr = m;
+		//data->zoom += 30;
 		black_it(data);
 	    calculate(data);
 	}
 		if (key == 31) // o - out
 	{
-		data->zoom -= 30;
+		data->f_ptr = j;
+		//data->zoom -= 30;
 		black_it(data);
 	    calculate(data);
 	}
@@ -37,10 +39,15 @@ int		keyboard(int key, t_fractal *data)
 
 int		deal_mouse(int mouse, int x, int y, t_fractal *data)
 {
+
+	data->move_x += ((x - 400) / data->zoom  + data->move_x)
+			- ((x - 400) / (data->zoom * 1.1) + data->move_x);
+	data->move_y += ((y - 400) / data->zoom  + data->move_y)
+			- ((y - 400) / (data->zoom * 1.1) + data->move_y);
+
 	if (mouse == 5)
-		data->zoom += 20;
-	if (mouse == 4 )
-		data->zoom -= 20;
+		data->zoom *= 1.1;
+
 	calculate(data);
 	return (0);
 }

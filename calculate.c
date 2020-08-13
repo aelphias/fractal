@@ -6,7 +6,7 @@
 /*   By: aelphias <aelphias@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 21:31:16 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/14 00:55:10 by aelphias         ###   ########.fr       */
+/*   Updated: 2020/08/14 02:32:34 by aelphias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,45 @@ __uint32_t	bernstein_color(int iter, int itera, double shift)
 	return (color);
 }
 
-int	m(t_fractal *data)
+int burningship(t_fractal *data)
 {
 	unsigned int i;
 	t_complex	z;
 	t_complex	c;
-	
+	t_complex tmp;
+
 	i = 0;
 	c.re = ((data->x - 400) / data->zoom) + data->move_x;//zoom;
 	c.im = ((data->y - 400) / data->zoom) + data->move_y; /* move up and down*/
 	z = c;
-	while (i < data->iterations && ((z.re * z.re + z.im * z.im) <= 4.f))
+	while (i < 32 && ((z.re * z.re + z.im * z.im) <= 4.f))
 	{
-		t_complex tmp = z;
+		tmp = z;
+		z.re = tmp.re * tmp.re - tmp.im * tmp.im;
+		z.im = fabs(2 * tmp.re * tmp.im);
+		z.re += c.re;
+		z.im += c.im;
+		i++;
+	}
+	//return (bernstein_color(i, 100, 0.5)); // color 0,1 - 1
+	return (i * 4); // color 0,1 - 1
+}
+
+int	mandelbrot(t_fractal *data)
+{
+	unsigned int i;
+	t_complex	z;
+	t_complex	c;
+	t_complex tmp;
+
+	i = 0;
+	c.re = ((data->x - 400) / data->zoom) + data->move_x;//zoom;
+	c.im = ((data->y - 400) / data->zoom) + data->move_y; /* move up and down*/
+	z = c;
+	while (i < 1000 && ((z.re * z.re + z.im * z.im) <= 4.f))
+	{
+
+		tmp = z;
 		z.re = tmp.re * tmp.re - tmp.im * tmp.im;
 		z.im = 2 * tmp.re * tmp.im;
 		z.re += c.re;
@@ -56,17 +82,18 @@ int	m(t_fractal *data)
 	return (i * 4); // color 0,1 - 1
 }
 
-int	j(t_fractal *data)
+int	julia(t_fractal *data)
 {
 	unsigned int i;
 	t_complex	z;
+	t_complex tmp;
 
 	i = 1;
 	z.re = ((data->x - 400) / data->zoom);
 	z.im = ((data->y - 400) / data->zoom);
-	while (i < 500 && ((z.re * z.re + z.im * z.im) <= 4.f))
+	while (i < data->iterations && ((z.re * z.re + z.im * z.im) <= 4.f))
 	{
-		t_complex tmp = z;
+		tmp = z;
 		z.re = tmp.re * tmp.re - tmp.im * tmp.im;
 		z.im = 2 * tmp.re * tmp.im;
 		z.re += data->c.re;

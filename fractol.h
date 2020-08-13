@@ -6,7 +6,7 @@
 /*   By: aelphias <aelphias@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 22:10:56 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/14 00:25:37 by aelphias         ###   ########.fr       */
+/*   Updated: 2020/08/14 01:53:03 by aelphias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ struct						s_fractal
 	double			move_y;
 	int				(*f_ptr)(t_fractal*);
 	unsigned int	iterations;
+	short			locked;
 };
 
 void						set_defaults(t_fractal *data);
@@ -58,8 +59,9 @@ int							ft_exit(t_fractal *data);
 int							keyboard(int key, t_fractal *data);
 int							deal_mouse(int mouse,
 								int x, int y, t_fractal *data);
-int							j(t_fractal *data);
-int							m(t_fractal *data);
+int							julia(t_fractal *data);
+int							mandelbrot(t_fractal *data);
+int							burningship(t_fractal *data);
 void						black_it(t_fractal *data);
 int	mouse_changes_params(int x, int y, t_fractal *data);
 #endif

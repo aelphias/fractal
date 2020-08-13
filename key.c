@@ -6,7 +6,7 @@
 /*   By: aelphias <aelphias@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 12:30:23 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/14 00:49:37 by aelphias         ###   ########.fr       */
+/*   Updated: 2020/08/14 02:39:49 by aelphias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,35 @@
 
 int	mouse_changes_params(int x, int y, t_fractal *data)
 {
-	data->c.re += (double)x / 10000;
-	data->c.im += (double)y / 10000;
-	calculate(data);
+	if (!data->locked)
+	{
+		data->c.re += (double)x / 10000;
+		data->c.im += (double)y / 10000;
+		calculate(data);
+	}
 	return (0);
 }
 
 int		keyboard(int key, t_fractal *data)
 {
 	printf("key:%d\n", key);
-	
 	if (key == 53)/*esc*/
 		exit(write(1,"Bye!\n", 6));
+	/*126^
+	125\/
+	123 <
+	124 >*/
+	if (key == 123)
+		data->move_x *= 1.1;
+	
+	if (key == 49)
+		data->locked = 1;
+	if (key == 259)
+		data->locked = 0;
 	if (key == 46) /*m - switch to mandelbrot set*/
-		data->f_ptr = m;
+		data->f_ptr = mandelbrot;
 	if (key == 38) /*j switch to julia set*/
-		data->f_ptr = j;
+		data->f_ptr = julia;
 	if (key == 24 || key == 69) /*+*/
 			data->iterations += 100;
 	if (key == 27 || key == 78) /*-*/

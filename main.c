@@ -6,7 +6,7 @@
 /*   By: aelphias <aelphias@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 19:06:51 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/14 00:49:59 by aelphias         ###   ########.fr       */
+/*   Updated: 2020/08/14 01:55:16 by aelphias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,25 @@ void	check(char **argv, t_fractal *data)
 {
 	if (argv[1][0] == 'm')
 	{
-		data->f_ptr = m;
+		data->f_ptr = mandelbrot;
 		data->iterations = 50;
 		calculate(data);
 		
 	}
 	else if (argv[1][0] == 'j')
 	{
-		data->f_ptr = j;
+		data->f_ptr = julia;
 		data->c.re = -0.4;
 		data->c.im = 0.5;
 		data->iterations = 200;
 		calculate(data);
 	}
-
+	else if (argv[1][0] == 'b')
+	{
+		data->f_ptr = burningship;
+		data->iterations = 50;
+		calculate(data);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -79,9 +84,9 @@ int	main(int argc, char **argv)
 		"j julia set\nr - 3rd set\n", 67);  
 		return (1);
 	}
-	if (argv[1][0] != 'm' && argv[1][0] != 'j')
+	if (argv[1][0] != 'm' && argv[1][0] != 'j' && argv[1][0] != 'b')
 	{
-		write(2, "wrong flag, try: m or j..\n", 27);
+		write(2, "wrong flag, try: m or j or b\n", 27);
 		return (2);
 	}
 	set_defaults(&data);

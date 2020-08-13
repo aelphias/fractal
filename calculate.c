@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calculate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelphias <aelphias@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelphias <aelphias@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 21:31:16 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/12 22:16:08 by aelphias         ###   ########.fr       */
+/*   Updated: 2020/08/14 00:55:10 by aelphias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,46 +35,43 @@ __uint32_t	bernstein_color(int iter, int itera, double shift)
 
 int	m(t_fractal *data)
 {
-	int i = 0;
-	t_complex	z, c;
-				/*move left and write*/
-	/* c.re = (data->x - (data->w / 2)* data->mouse_x) / data->zoom;//zoom;
-	c.im = (data->y - (data->h /2 )* data->mouse_y) / data->zoom; */
+	unsigned int i;
+	t_complex	z;
+	t_complex	c;
+	
+	i = 0;
 	c.re = ((data->x - 400) / data->zoom) + data->move_x;//zoom;
 	c.im = ((data->y - 400) / data->zoom) + data->move_y; /* move up and down*/
 	z = c;
-
-	
-	while (i < 20 && ((z.re * z.re + z.im * z.im) <= 4.f))
+	while (i < data->iterations && ((z.re * z.re + z.im * z.im) <= 4.f))
 	{
 		t_complex tmp = z;
 		z.re = tmp.re * tmp.re - tmp.im * tmp.im;
 		z.im = 2 * tmp.re * tmp.im;
 		z.re += c.re;
 		z.im += c.im;
-		i += 1;
+		i++;
 	}
 	//return (bernstein_color(i, 100, 0.5)); // color 0,1 - 1
 	return (i * 4); // color 0,1 - 1
-
 }
 
 int	j(t_fractal *data)
 {
-	int i;
+	unsigned int i;
 	t_complex	z;
 
-	i = 0;
-	z.re = (data->x - 400) / 400.f;
-	z.im = (data->y - 400) / 400.f;
-	while (i < 10000 && ((z.re * z.re + z.im * z.im) <= 4.f))
+	i = 1;
+	z.re = ((data->x - 400) / data->zoom);
+	z.im = ((data->y - 400) / data->zoom);
+	while (i < 500 && ((z.re * z.re + z.im * z.im) <= 4.f))
 	{
 		t_complex tmp = z;
 		z.re = tmp.re * tmp.re - tmp.im * tmp.im;
 		z.im = 2 * tmp.re * tmp.im;
 		z.re += data->c.re;
 		z.im += data->c.im;
-		i += 1;
+		i++;
 	}
 	//return (i);
 	return (bernstein_color(i, 2000, 0.00775));
@@ -97,13 +94,3 @@ void	calculate(t_fractal *data)
 	data->x = 0;
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->mlx_img, 0 ,0);
 }
-
-
-/* int mandel(complex c, int max_count) {
- int count = 0; complex z = 0;
- for (int i = 0; i < max_count; ++i) {
- if (abs(z) >= 2.0) break;
- z = z*z + c; count++;
- }
- return count;
-}  */

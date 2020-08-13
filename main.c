@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelphias <aelphias@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelphias <aelphias@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 19:06:51 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/12 22:20:27 by aelphias         ###   ########.fr       */
+/*   Updated: 2020/08/14 00:49:59 by aelphias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	set_defaults(t_fractal *data)
 	int		width; 
 	int		endian;
 	
-	bzero(data, sizeof(t_fractal));
+	bzero(data, sizeof(t_fractal));  // CHANGE to FT_BZERO!
 	depth 		= 24;
 	endian		= 0;
 	width		= data->w;
@@ -46,6 +46,7 @@ void	mlx_start(t_fractal *data)
 {
 	mlx_mouse_hook(data->win_ptr, deal_mouse, data);
 	mlx_hook(data->win_ptr, 2, 0, keyboard, data);
+	mlx_hook(data->win_ptr, 6, 0, mouse_changes_params, data);
 	mlx_loop(data->mlx_ptr);
 }
 
@@ -54,17 +55,19 @@ void	check(char **argv, t_fractal *data)
 	if (argv[1][0] == 'm')
 	{
 		data->f_ptr = m;
-		calculate(data); 
+		data->iterations = 50;
+		calculate(data);
+		
 	}
 	else if (argv[1][0] == 'j')
 	{
 		data->f_ptr = j;
 		data->c.re = -0.4;
-		data->c.im = 0.6;
+		data->c.im = 0.5;
+		data->iterations = 200;
 		calculate(data);
 	}
-	else 
-		write(1, "wrong flag, try: m or j..\n", 27);
+
 }
 
 int	main(int argc, char **argv)
@@ -72,8 +75,14 @@ int	main(int argc, char **argv)
 	t_fractal data;
 	if (argc < 2)
 	{
-		write(1, "usage: ./fractol [-flag]\nm - mandelbrot set\nj julia set\nr - 3rd set\n", 68);  
-		return (0);
+		write(2, "usage: ./fractol [flag]\nm - mandelbrot set\n"
+		"j julia set\nr - 3rd set\n", 67);  
+		return (1);
+	}
+	if (argv[1][0] != 'm' && argv[1][0] != 'j')
+	{
+		write(2, "wrong flag, try: m or j..\n", 27);
+		return (2);
 	}
 	set_defaults(&data);
  	check(argv, &data);

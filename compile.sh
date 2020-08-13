@@ -1,1 +1,1 @@
-make && ./fractol 
+make && ./fractol m

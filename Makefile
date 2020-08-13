@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aelphias <aelphias@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: aelphias <aelphias@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/08/07 19:06:53 by aelphias          #+#    #+#              #
-#    Updated: 2020/08/12 14:50:03 by aelphias         ###   ########lyon.fr    #
+#    Created: 2020/08/13 18:12:10 by aelphias          #+#    #+#              #
+#    Updated: 2020/08/13 18:17:11 by aelphias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ FLAGS		=	-Wextra -Wall -Werror -g
 FRAMEWORKS	=	-lmlx -framework OpenGL -framework AppKit
 
 SRC			= 	*.c
-
 
 all: 
 	gcc $(FLAGS) $(FRAMEWORKS) -I$(HEADER) $(SRC) -o $(NAME) 

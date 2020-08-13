@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelphias <aelphias@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aelphias <aelphias@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 22:10:56 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/12 22:14:39 by aelphias         ###   ########.fr       */
+/*   Updated: 2020/08/14 00:25:37 by aelphias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@
 # include <stdio.h>
 # include <unistd.h>
 
+typedef struct s_fractal	t_fractal;
+
 typedef struct				s_complex
 {
 	double re;
 	double im;
 }							t_complex;
 
-typedef struct s_fractal	t_fractal;
 
 struct						s_fractal
 {
@@ -48,6 +49,7 @@ struct						s_fractal
 	double			move_x;
 	double			move_y;
 	int				(*f_ptr)(t_fractal*);
+	unsigned int	iterations;
 };
 
 void						set_defaults(t_fractal *data);
@@ -59,4 +61,5 @@ int							deal_mouse(int mouse,
 int							j(t_fractal *data);
 int							m(t_fractal *data);
 void						black_it(t_fractal *data);
+int	mouse_changes_params(int x, int y, t_fractal *data);
 #endif

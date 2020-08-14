@@ -6,7 +6,7 @@
 /*   By: aelphias <aelphias@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 12:30:23 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/14 22:50:58 by aelphias         ###   ########.fr       */
+/*   Updated: 2020/08/14 23:23:03 by aelphias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	mouse_changes_params(int x, int y, t_fractal *data)
 	return (0);
 }
 
-int		keyboard(int key, t_fractal *data)
+int	keyboard(int key, t_fractal *data)
 {
-	if (key == 53)/*esc*/
+	if (key == 53)
 		exit(write(1, "Bye!\n", 6));
 	if (key == 123)
 		data->move_x *= 1.1;
@@ -38,24 +38,24 @@ int		keyboard(int key, t_fractal *data)
 		data->move_y /= 1.1;
 	if (key == 49)
 		data->locked = 1;
-	if (key == 259)	 /* command button to unclock*/
+	if (key == 259)
 		data->locked = 0;
-	if (key == 46) /*m - switch to mandelbrot set*/
+	if (key == 46)
 		data->f_ptr = mandelbrot;
-	if (key == 38) /*j switch to julia set*/
+	if (key == 38)
 		data->f_ptr = julia;
-	if (key == 11) /*j switch to julia set*/
+	if (key == 11)
 		data->f_ptr = burningship;
-	keyboard_1(key,data);
+	keyboard_1(key, data);
 	calculate(data);
 	return (0);
 }
 
-int		keyboard_1(int key, t_fractal *data)
+int	keyboard_1(int key, t_fractal *data)
 {
-	if (key == 24 || key == 69) /*+*/
-			data->iterations += 5;
-	if (key == 27 || key == 78) /*-*/
+	if (key == 24 || key == 69)
+		data->iterations += 5;
+	if (key == 27 || key == 78)
 		if (data->iterations >= 15)
 			data->iterations -= 5;
 	if (key == 8)
@@ -66,25 +66,24 @@ int		keyboard_1(int key, t_fractal *data)
 	return (0);
 }
 
-
-int		deal_mouse(int mouse, int x, int y, t_fractal *data)
+int	deal_mouse(int mouse, int x, int y, t_fractal *data)
 {
 	if (mouse == 5)
 	{
 		data->zoom *= 1.1;
-		data->move_x += ((x - 400) / data->zoom  + data->move_x)
-			- ((x - 400) / (data->zoom * 1.1) + data->move_x);
-		data->move_y += ((y - 400) / data->zoom  + data->move_y)
-			- ((y - 400) / (data->zoom * 1.1) + data->move_y);
+		data->move_x += ((x - 400) / data->zoom + data->move_x)
+		- ((x - 400) / (data->zoom * 1.1) + data->move_x);
+		data->move_y += ((y - 400) / data->zoom + data->move_y)
+		- ((y - 400) / (data->zoom * 1.1) + data->move_y);
 	}
 	if (mouse == 4)
 	{
 		data->zoom /= 1.1;
-		data->move_x += ((x - 400) / data->zoom  + data->move_x)
+		data->move_x += ((x - 400) / data->zoom + data->move_x)
 			- ((x - 400) / (data->zoom / 1.1) + data->move_x);
-		data->move_y += ((y - 400) / data->zoom  + data->move_y)
+		data->move_y += ((y - 400) / data->zoom + data->move_y)
 			- ((y - 400) / (data->zoom / 1.1) + data->move_y);
 	}
-	calculate(data); 
+	calculate(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: aelphias <aelphias@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 19:06:51 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/14 22:54:44 by aelphias         ###   ########.fr       */
+/*   Updated: 2020/08/14 23:19:31 by aelphias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	set_defaults(t_fractal *data)
 	int		endian;
 
 	ft_bzero(data, sizeof(t_fractal));
-	depth	= 24;
-	endian	= 0;
-	width	= data->w;
-	data->w	= 800;
-	data->h	= 800;
-	data->zoom	= 250.0;
+	depth = 24;
+	endian = 0;
+	width = data->w;
+	data->w = 800;
+	data->h = 800;
+	data->zoom = 250.0;
 	data->mlx_ptr = mlx_init();
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->w, data->h, "Fractal");
 	data->mlx_img = mlx_new_image(data->mlx_ptr, data->w, data->h);
@@ -67,13 +67,14 @@ void	check(char **argv, t_fractal *data)
 	}
 }
 
-int	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	t_fractal data;
+
 	if (argc < 2)
 	{
 		write(2, "usage: ./fractol [flag]\nm - mandelbrot set\n"
-		"j julia set\nr - 3rd set\n", 67);  
+		"j julia set\nr - 3rd set\n", 67);
 		return (1);
 	}
 	if (argv[1][0] != 'm' && argv[1][0] != 'j' && argv[1][0] != 'b')
@@ -82,7 +83,7 @@ int	main(int argc, char **argv)
 		return (2);
 	}
 	set_defaults(&data);
- 	check(argv, &data);
+	check(argv, &data);
 	mlx_start(&data);
 	mlx_destroy_window(data.mlx_ptr, data.win_ptr);
 	return (0);

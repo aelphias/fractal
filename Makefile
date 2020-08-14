@@ -6,7 +6,7 @@
 #    By: aelphias <aelphias@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/13 18:12:10 by aelphias          #+#    #+#              #
-#    Updated: 2020/08/14 23:08:23 by aelphias         ###   ########.fr        #
+#    Updated: 2020/08/14 23:11:04 by aelphias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_DIR = ./src/
 OBJ_DIR = ./obj/
 SRC_INC_DIR = ./includes
 INC_C = ./includes/fractol.h
-SRC_FILES = 111.c
+SRC_FILES =  calculate.c ft_bzero.c key.c main.c black.c
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJS = $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 INCL = -I$(SRC_INC_DIR)

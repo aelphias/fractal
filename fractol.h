@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aelphias <aelphias@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aelphias <aelphias@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/12 22:10:56 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/14 21:37:51 by aelphias         ###   ########.fr       */
+/*   Created: 2020/08/14 22:00:22 by aelphias          #+#    #+#             */
+/*   Updated: 2020/08/14 22:14:34 by aelphias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct				s_complex
 	double re;
 	double im;
 }							t_complex;
-
 
 struct						s_fractal
 {
@@ -57,11 +56,14 @@ void						set_defaults(t_fractal *data);
 void						calculate(t_fractal *data);
 int							ft_exit(t_fractal *data);
 int							keyboard(int key, t_fractal *data);
+int							keyboard_1(int key, t_fractal *data);
 int							deal_mouse(int mouse,
 								int x, int y, t_fractal *data);
 int							julia(t_fractal *data);
 int							mandelbrot(t_fractal *data);
 int							burningship(t_fractal *data);
 void						black_it(t_fractal *data);
-int	mouse_changes_params(int x, int y, t_fractal *data);
+int							mouse_changes_params(int x, int y, t_fractal *data);
+void						ft_bzero(void *s, size_t n);
+
 #endif

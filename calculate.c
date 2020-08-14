@@ -6,13 +6,13 @@
 /*   By: aelphias <aelphias@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 21:31:16 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/14 02:32:34 by aelphias         ###   ########.fr       */
+/*   Updated: 2020/08/14 21:44:42 by aelphias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
  
-__uint32_t	bernstein_color(int iter, int itera, double shift)
+__uint32_t	bernstein_color(int i, int i_max)
 {
 	__uint32_t	color;   /*0 .. 4,294,967,295*/
 	int			r;
@@ -21,9 +21,9 @@ __uint32_t	bernstein_color(int iter, int itera, double shift)
 	double		t;
 
 	color = 0;
-	if (itera == 0)
+	if (i_max == 0)
 		return (0);
-	t = fabs(shift - ((double)(iter) / (double)(itera)));
+	t = fabs(((double)(i) / (double)(i_max)));
 	r = (int)(9 * (1 - t) * t * t * t * 255);
 	g = (int)(15 * (1 - t) * (1 - t) * t * t * 255);
 	b = (int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
@@ -44,7 +44,7 @@ int burningship(t_fractal *data)
 	c.re = ((data->x - 400) / data->zoom) + data->move_x;//zoom;
 	c.im = ((data->y - 400) / data->zoom) + data->move_y; /* move up and down*/
 	z = c;
-	while (i < 32 && ((z.re * z.re + z.im * z.im) <= 4.f))
+	while (i < data->iterations && ((z.re * z.re + z.im * z.im) <= 4.f))
 	{
 		tmp = z;
 		z.re = tmp.re * tmp.re - tmp.im * tmp.im;
@@ -54,7 +54,7 @@ int burningship(t_fractal *data)
 		i++;
 	}
 	//return (bernstein_color(i, 100, 0.5)); // color 0,1 - 1
-	return (i * 4); // color 0,1 - 1
+		return (bernstein_color(i, data->color));
 }
 
 int	mandelbrot(t_fractal *data)
@@ -68,7 +68,7 @@ int	mandelbrot(t_fractal *data)
 	c.re = ((data->x - 400) / data->zoom) + data->move_x;//zoom;
 	c.im = ((data->y - 400) / data->zoom) + data->move_y; /* move up and down*/
 	z = c;
-	while (i < 1000 && ((z.re * z.re + z.im * z.im) <= 4.f))
+	while (i < data->iterations && ((z.re * z.re + z.im * z.im) <= 4.f))
 	{
 
 		tmp = z;
@@ -78,8 +78,7 @@ int	mandelbrot(t_fractal *data)
 		z.im += c.im;
 		i++;
 	}
-	//return (bernstein_color(i, 100, 0.5)); // color 0,1 - 1
-	return (i * 4); // color 0,1 - 1
+	return (bernstein_color(i, data->color)); // color 0,1 - 1
 }
 
 int	julia(t_fractal *data)
@@ -88,9 +87,9 @@ int	julia(t_fractal *data)
 	t_complex	z;
 	t_complex tmp;
 
-	i = 1;
-	z.re = ((data->x - 400) / data->zoom);
-	z.im = ((data->y - 400) / data->zoom);
+	i = 0;
+	z.re = ((data->x - 400) / data->zoom) + data->move_x;
+	z.im = ((data->y - 400) / data->zoom) + data->move_y;
 	while (i < data->iterations && ((z.re * z.re + z.im * z.im) <= 4.f))
 	{
 		tmp = z;
@@ -100,8 +99,7 @@ int	julia(t_fractal *data)
 		z.im += data->c.im;
 		i++;
 	}
-	//return (i);
-	return (bernstein_color(i, 2000, 0.00775));
+	return (bernstein_color(i, data->color));
 }
 
 void	calculate(t_fractal *data)

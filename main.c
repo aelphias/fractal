@@ -6,7 +6,7 @@
 /*   By: aelphias <aelphias@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 19:06:51 by aelphias          #+#    #+#             */
-/*   Updated: 2020/08/14 01:55:16 by aelphias         ###   ########.fr       */
+/*   Updated: 2020/08/14 21:45:47 by aelphias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	mlx_start(t_fractal *data)
 	mlx_mouse_hook(data->win_ptr, deal_mouse, data);
 	mlx_hook(data->win_ptr, 2, 0, keyboard, data);
 	mlx_hook(data->win_ptr, 6, 0, mouse_changes_params, data);
+	//mlx_hook(data->win_ptr, 4,0,deal_mouse, data);
 	mlx_loop(data->mlx_ptr);
 }
 
@@ -55,22 +56,25 @@ void	check(char **argv, t_fractal *data)
 	if (argv[1][0] == 'm')
 	{
 		data->f_ptr = mandelbrot;
-		data->iterations = 50;
+		data->iterations = 150;
+		data->color = 250;
 		calculate(data);
 		
 	}
 	else if (argv[1][0] == 'j')
 	{
 		data->f_ptr = julia;
-		data->c.re = -0.4;
+		data->c.re = -0.5;
 		data->c.im = 0.5;
 		data->iterations = 200;
+		data->color = 250;
 		calculate(data);
 	}
 	else if (argv[1][0] == 'b')
 	{
 		data->f_ptr = burningship;
 		data->iterations = 50;
+		data->color = 50;
 		calculate(data);
 	}
 }

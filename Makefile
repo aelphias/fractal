@@ -6,7 +6,7 @@
 #    By: aelphias <aelphias@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/13 18:12:10 by aelphias          #+#    #+#              #
-#    Updated: 2020/08/13 18:17:11 by aelphias         ###   ########.fr        #
+#    Updated: 2020/08/14 20:47:24 by aelphias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME 		= 	fractol
 
 HEADER 		= 	fractol.h
 
-FLAGS		=	-Wextra -Wall -Werror -g
+FLAGS		=	-Wextra -Wall -Werror -g -O3
 
 FRAMEWORKS	=	-lmlx -framework OpenGL -framework AppKit
 
